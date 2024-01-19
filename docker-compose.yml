@@ -1,0 +1,66 @@
+version: '3'
+
+services:
+  # app:
+  #   build:
+  #     context: .
+  #   volumes:
+  #     - .:/app
+
+  db:
+    image: postgres:16.1
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: ny_taxi_data
+    volumes:
+      - ./db-data:/var/lib/postgresql/data
+    ports:
+      - 54321:5432
+    # networks:
+    #   - db-network
+
+  pgAdmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - 8080:80
+    # networks:
+    #   - db-network
+
+  pipeline_trips:
+    build:
+      context: .
+    environment:
+      user: root
+      password: root
+      host: db
+      port: 5432
+      db: ny_taxi_data
+      table_name: yellow_taxi
+      url: 'https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata_2019-09.csv.gz'
+
+  pipeline_zones:
+    build:
+      context: .
+    environment:
+      user: root
+      password: root
+      host: db
+      port: 5432
+      db: ny_taxi_data
+      table_name: zones
+      url: 'https://s3.amazonaws.com/nyc-tlc/misc/taxi+_zone_lookup.csv'
+
+
+# docker run ingest_data \
+#        --user=root \
+#        --password=root \
+#        --host=localhost \
+#        --port=5432 \
+#        --db=ny_taxi_data \
+#        --table_name=yellow_taxi \
+#        --url='https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2023-09.parquet'
