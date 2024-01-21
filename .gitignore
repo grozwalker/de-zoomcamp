@@ -1,8 +1,1 @@
 .DS_Store
-.git
-.ipynb_checkpoints
-db-data
-*.json
-terraform/.terraform
-terraform/.terraform.lock.hcl
-terraform/terraform.tfstate.backup
