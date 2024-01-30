@@ -7,17 +7,17 @@ services:
   #   volumes:
   #     - .:/app
 
-  db:
-    image: postgres:16.1
-    restart: always
-    environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: root
-      POSTGRES_DB: ny_taxi_data
-    volumes:
-      - ./db-data:/var/lib/postgresql/data
-    ports:
-      - 54321:5432
+  # db:
+  #   image: postgres:16.1
+  #   restart: always
+  #   environment:
+  #     POSTGRES_USER: root
+  #     POSTGRES_PASSWORD: root
+  #     POSTGRES_DB: ny_taxi_data
+  #   volumes:
+  #     - ./db-data:/var/lib/postgresql/data
+  #   ports:
+  #     - 54321:5432
     # networks:
     #   - db-network
 
@@ -28,32 +28,35 @@ services:
       PGADMIN_DEFAULT_PASSWORD: root
     ports:
       - 8080:80
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     # networks:
     #   - db-network
 
-  pipeline_trips:
-    build:
-      context: .
-    environment:
-      user: root
-      password: root
-      host: db
-      port: 5432
-      db: ny_taxi_data
-      table_name: yellow_taxi
-      url: 'https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata_2019-09.csv.gz'
+  # pipeline_trips:
+  #   build:
+  #     context: .
+  #   environment:
+  #     user: root
+  #     password: root
+  #     host: db
+  #     port: 5432
+  #     db: ny_taxi_data
+  #     table_name: yellow_taxi
+  #     url: 'https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata_2019-09.csv.gz'
 
-  pipeline_zones:
-    build:
-      context: .
-    environment:
-      user: root
-      password: root
-      host: db
-      port: 5432
-      db: ny_taxi_data
-      table_name: zones
-      url: 'https://s3.amazonaws.com/nyc-tlc/misc/taxi+_zone_lookup.csv'
+  # pipeline_zones:
+  #   build:
+  #     context: .
+  #   environment:
+  #     user: root
+  #     password: root
+  #     host: db
+  #     port: 5432
+  #     db: ny_taxi_data
+  #     table_name: zones
+  #     url: 'https://s3.amazonaws.com/nyc-tlc/misc/taxi+_zone_lookup.csv'
+
 
 
 # docker run ingest_data \
