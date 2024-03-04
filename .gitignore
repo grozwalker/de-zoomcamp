@@ -1,3 +1,7 @@
 .DS_Store
 keys/*.json
 db-data
+**/code/.ipynb_checkpoints
+**/.ipynb_checkpoints
+week_5/code/zones
+week_5/code/**/*.csv
