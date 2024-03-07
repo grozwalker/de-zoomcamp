@@ -5,3 +5,5 @@ db-data
 **/.ipynb_checkpoints
 week_5/code/zones
 week_5/code/**/*.csv
+week_5/code/data
+week_5/code/solution

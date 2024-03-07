@@ -1,4 +1,4 @@
-StructType(
+types.StructType(
   [
     types.StructField('LocationID', types.IntegerType(), True),
     types.StructField('Borough', types.StringType(), True),
@@ -6,3 +6,13 @@ StructType(
     types.StructField('service_zone', types.StringType(), True)
   ]
 )
+
+types.StructType([
+  types.StructField('dispatching_base_num', types.StringType(), True),
+  types.StructField('pickup_datetime', types.TimestampType(), True),
+  types.StructField('dropOff_datetime', types.TimestampType(), True),
+  types.StructField('PUlocationID', types.IntegerType(), True),
+  types.StructField('DOlocationID', types.IntegerType(), True),
+  types.StructField('SR_Flag', types.IntegerType(), True),
+  types.StructField('Affiliated_base_number', types.StringType(), True)
+])
